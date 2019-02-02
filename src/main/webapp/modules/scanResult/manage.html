@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+  	<meta name="apple-mobile-web-app-capable" content="yes">
+  	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+  	<meta name="theme-color" content="#2196f3">
+  	<meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <title>扫描赢得大奖</title>
+	<link rel="stylesheet" href="${base}css/framework7.css">
+	<link rel="stylesheet" href="${base}css/app.css">
+	<link rel="stylesheet" href="${base}css/srApp/style.css">
+</head>
+<body>
+	<div class="sr-wrap" id="srApp">
+	    <div class="statusbar"></div>
+	    <div class="view view-main view-init ios-edges" data-url="/">
+	      	<div class="page m-bg ggk-bg sr-index " data-page="srIndex">
+    			<div class="page-content">
+	      		<i class="icon-img scratch-title"></i>
+	      		<div class="ggk" id="guaguaka">
+					<img>
+					<canvas></canvas>
+					<div class="see-detail">
+	      				<#if woa??>
+						<a onclick="goSrDetail(${ecmId!0}, ${awardId!0}, ${woaId!0})"><button class="button">立即领取</button></a>
+						<#else>
+						<a onclick="goSrDetail(${ecmId!0}, ${awardId!0})"><button class="button">立即领取</button></a>
+						</#if>
+					</div>
+				</div>
+	      		<i class="icon-img scratch-tip"></i>
+	      		<#if woa??>
+			    <div class="woa-qrcode">
+					<img src="https://open.weixin.qq.com/qr/code?username=${woa.companyCode}" height="100%"/>
+					<div>长按关注公众号，获取其它惊喜和优惠~</div>
+				</div>
+	      		</#if>
+	      		<div class="bot-tip">活动最终解释权归五粮液酒业公司</div>
+	      		</div>
+	      	</div>
+	    </div>
+	  </div>
+	<script>var base = '${base}';</script>
+	<script src="${base}js/zepto.js"></script>
+	<script src="${base}js/emin.scratchCard.js"></script>
+	<script src="${base}js/external/qrcode.js"></script>
+	<script src="${base}js/srApp/routes.js"></script>
+	<script>
+		var eMsg = '${eMsg!""}',
+			wxConfig = null;
+		<#if eMsg??>
+			scratchCard({
+				id: 'guaguaka',
+				imgSrc: base + 'img/scratch-e.png',
+				admitScratch: false
+			});
+		<#else>
+
+			<#if wxConfig??>
+				wxConfig = JSON.parse('${wxConfig}');
+			</#if>
+			<#if scratchUrl??>
+				scratchCard({
+					id: 'guaguaka',
+					imgSrc: '${scratchUrl!""}',
+					admitScratch: true
+				});
+			<#else>
+				var oauthUrl = base + 'scanResult/index/${productCode!0}?ecmId=${ecmId!0}&woaId=${woaId!0}&wxActivityId=${wxActivityId!0}';
+				$.ajax({
+					url: base + 'wxTool/${woaId!0}/oauthUrl',
+					data: {
+						ecmId: ${ecmId},
+						url: oauthUrl
+					},
+					success: function(res){
+						if (res.success) {
+							location.href = res.result;
+						}
+					}
+				})	
+			</#if>
+		</#if>
+	</script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="${base}js/emin.wechat.js"></script>
+	<script src="${base}js/framework7.js"></script>
+	<script src="${base}js/srApp/app.js"></script>
+</body>
+</html>

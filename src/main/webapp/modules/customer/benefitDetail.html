@@ -1,0 +1,55 @@
+<div class="page grag-bg" data-page="customer-awardinfo">
+	<div class="page-content m-bg" id="awardInfo-view">
+		
+	</div>
+		<script type="text/html" id="awardInfoData">
+			
+			<div class="coupon-detail">
+			<div class="woa-info">
+				<a class="link back"><i class="icon-img"></i></a>
+				<div class="gray-txt">{{d.woa.companyName ? d.woa.companyName : ''}}&nbsp;-&nbsp;{{# if(d.awardType == 1) { }}奖券{{# } else { }}优惠券{{# } }}</div>
+			</div>
+			<div class="coupon-name">
+			{{d.awardInfo.name}}<br>一
+			{{# if(d.awardType == 1) { }}
+			{{d.awardInfo.unit ? d.awardInfo.unit : '' }}
+			{{# } else { }}
+			张
+			{{# } }}
+			</div>
+			{{}}
+			{{# if(d.awardStatus == 0){ }}
+				<button class="button" onclick="showAwardCode('{{d.awardCode}}')">立即使用</button>
+
+				{{# if(d.awardType == 2) { }}
+				<div class="valid-time">有效期：<span class="gray-txt">{{new Date(d.availableTime).Format('yyyy.MM.dd')}}-{{new Date(d.expireTime).Format('yyyy.MM.dd')}}</span></div>
+				{{# } else { }}
+				<div class="valid-time">有效期：长久有效</div>
+				{{# } }}
+			{{# } else { }}
+				<button class="button validated">已使用</button>
+				<div class="valid-time">使用时间：<span class="gray-txt">
+				{{# if(d.consumeRecord != null) { }}
+				{{new Date(d.consumeRecord.createTime).Format('yyyy.MM.dd')}}
+				{{# } else { }}
+				未更新
+				{{# } }}
+				</span></div>
+			{{# } }}
+			<div id="myCouponCode" style="display: none">
+				<div class="code-area" style="margin: 0 auto; width: 100px; height: 100px;"></div>
+			</div>
+			<div class="pic-info">
+				<i class="icon-img" style="background-image:url({{d.awardInfo.picUrls.storage[1].fileStorageUrl}})"></i>
+				<!--<div class="bot-name">{{d.awardInfo.name}}一
+				{{# if(d.awardType == 1) { }}
+				{{d.awardInfo.unit}}
+				{{# } else { }}
+				张
+				{{# } }}
+				<i class="icon-img"></i></div>-->
+			</div>
+			<!--<div class="valid-store">适用门店 <i class="icon-img more"></i></div>-->
+			</div>
+		</script>
+</div>

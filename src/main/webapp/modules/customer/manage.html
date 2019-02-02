@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  	<meta name="apple-mobile-web-app-capable" content="yes">
+  	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>客户中心</title>
+	<link rel="stylesheet" href="${base}css/framework7.min.css">
+	<link rel="stylesheet" href="${base}css/app.css">
+	<link rel="stylesheet" href="${base}css/customerApp/style.css">
+  	<link rel="stylesheet" href="${base}js/plugins/layui/css/layui.mobile.css"  media="all">
+</head>
+<body>
+	<div class="customer-wrap" id="customerApp">
+	    <div class="statusbar"></div>
+	    <div class="view view-main view-init ios-edges" data-url="customer/index">
+	      	<div class="page grag-bg" data-page="customer-index">
+	      		<div class="head-content">
+	      			<nav>
+	      			</nav>
+	      			<div class="info">
+	      				<i class="icon-img" style="background-image: url(${userinfo.headimgurl})"></i>
+	      				<div>${userinfo.nickname}</div>
+	      			</div>
+	      		</div>
+	        	<div class="opers-content">
+	        		<div class="opers-card">
+	        			<div class="lft-circle"></div>
+	        			<div class="rgt-circle"></div>
+	        			<div class="row">
+	        				<a class="col-33" href="/myLotteries/${ecmId}/${openId}/${woaId}/">
+	        					<i class="icon-img" style="background-image: url(${base}/img/customerApp/lottery.png)"></i>
+	        					<div>我的奖券</div>
+	        				</a>
+	        				<a class="col-33" href="/myCoupons/${ecmId}/${openId}/${woaId}/">
+	        					<i class="icon-img" style="background-image: url(${base}/img/customerApp/coupon.png)"></i>
+	        					<div>我的优惠券</div>
+	        				</a>
+	        				<a class="col-33" href="/myExchangeds/${ecmId}/${openId}/${woaId}/">
+	        					<i class="icon-img" style="background-image: url(${base}/img/customerApp/exchanged.png)"></i>
+	        					<div>已使用券</div>
+	        				</a>
+	        			</div>
+	        		</div>
+	        	</div>
+	      	</div>
+	    </div>
+	  </div>
+	<script id="lotteriesData" type="text/html">
+  		{{#  layui.each(d, function(index, item){ }}
+    	<li>
+			<a href="/awardDetail/{{d.ecmId}}/{{item.id}}/{{d.woaId}}/">
+				<i class="icon-img good-pic" style="background-image:url({{item.awardInfo.picUrls.storage[1].fileStorageUrl}})"></i>
+				<div class="info">
+					<div class="good-name">{{item.awardInfo.name}}</div>
+					<div>
+					{{# if(d.title == '奖券') { }}
+					中奖日期：{{new Date(item.availableTime).Format('yyyy.MM.dd')}}
+					{{# }else{ }}
+					{{# if(item.consumeRecord != null) { }}
+					使用日期：{{new Date(item.consumeRecord.createTime).Format('yyyy.MM.dd')}}
+					{{# } else { }}
+					未更新
+					{{# } }}
+					{{# } }}
+					</div>
+				</div>
+				<i class="icon-img more"></i>
+			</a>
+		</li>
+  		{{#  }); }}
+		{{# if(d.length == 0) { }}
+			<i class="icon-img no-data"></i>
+		{{# } }}
+	</script>
+	<script id="cupponsData" type="text/html">
+  		{{# layui.each(d, function(index, item){ }}
+    		<li>
+				<a href="/awardDetail/{{d.ecmId}}/{{item.id}}/{{d.woaId}}/">
+				<div class="info">
+					<div class="area-name">{{item.awardInfo.name/100}}</div>
+					<div>代金券</div>
+					<div>有效期：{{new Date(item.availableTime).Format('yyyy.MM.dd')}}~{{new Date(item.expireTime).Format('yyyy.MM.dd')}}</div>
+				</div>
+				<div class="oper">
+					<div class="money">￥<span>{{Math.floor((item.awardInfo.amount / 100) * 100) / 100}}</span></div>
+					<button class="button button-round">使用</button>
+				</div>
+				<div class="top-circle"></div>
+				<div class="bot-circle"></div>
+				</a>
+			</li>
+  		{{#  }); }}
+		{{# if(d.length == 0) { }}
+			<i class="icon-img no-data"></i>
+		{{# } }}
+	</script>
+	<script>var base = '${base}', wxConfig = JSON.parse('${wxConfig}');</script>
+	<script src="${base}js/plugins/layui/layui.all.js" charset="utf-8"></script>
+	<script src="${base}js/zepto.js"></script>
+	<script src="${base}js/emin.common.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="${base}js/emin.wechat.js"></script>
+	<script src="${base}js/external/qrcode.js"></script>
+	<script src="${base}js/framework7.min.js"></script>
+	<script src="${base}js/customerApp/routes.js"></script>
+	<script src="${base}js/customerApp/app.js"></script>
+</body>
+</html>

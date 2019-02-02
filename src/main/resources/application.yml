@@ -1,0 +1,28 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.0.202:8761/eureka/
+server:
+  port: 8766
+spring:
+  application:
+    name: wxclient
+  freemarker:
+    allow-request-override: false
+    cache: true
+    checkTemplateLocation: true
+    charSet: UTF-8
+    contentType: text/html
+    exposeRequestAttributes: true
+    exposeSessionAttributes: true
+    exposeSpringMacroHelpers: false
+    suffix: .html
+    templateLoaderPath: classpath:/
+    prefer-file-system-access: false
+    settings:
+      templateExceptionHandler: ignore
+  rabbitmq: 
+      host: 192.168.0.202
+      port: 5672
+      username: eminsys
+      password: emin@2017

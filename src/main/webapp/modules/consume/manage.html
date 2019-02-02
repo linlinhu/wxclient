@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  	<meta name="apple-mobile-web-app-capable" content="yes">
+  	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>经销商中心</title>
+	<link rel="stylesheet" href="${base}css/framework7.min.css">
+	<link rel="stylesheet" href="${base}css/app.css">
+	<link rel="stylesheet" href="${base}css/consumeApp/style.css">
+  	<link rel="stylesheet" href="${base}js/plugins/layui/css/layui.mobile.css"  media="all">
+</head>
+<body>
+	<div class="consume-wrap" id="consumeApp">
+	    <div class="statusbar"></div>
+	    <div class="view view-main view-init ios-edges" data-url="/">
+	      	<div class="page grag-bg" data-page="consume-index">
+	      		<#if checkBind?? && checkBind == false>
+	      		<div class="head-content">
+					<div class="block-title">兑奖登录</div>
+		      		<div class="list no-hairlines-md cosume-login">
+		      			<ul>
+					        <li class="item-content item-input">
+					          <div class="item-inner">
+					            <div class="item-title item-floating-label">账号/手机号</div>
+					            <div class="item-input-wrap">
+					              <input type="text" placeholder="输入您的账号/手机号" id="consume_person_name">
+					              <span class="input-clear-button"></span>
+					            </div>
+					          </div>
+					        </li>
+					        <li class="item-content item-input">
+					          <div class="item-inner">
+					            <div class="item-title item-floating-label">密码</div>
+					            <div class="item-input-wrap">
+					              <input type="password" placeholder="输入您的密码"  id="consume_person_pwd">
+					              <span class="input-clear-button"></span>
+					            </div>
+					          </div>
+					        </li>
+					        <li class="item-content item-input">
+					        <button class="button m-bg" onclick="consumeLogin('${ecmId}', '${openId}')">确认</button>
+					        </li>
+					   	</ul>
+					</div>
+	        	</div>
+	      	</div>
+        	<#else>
+			<div class="scan-wrap">
+				<a class="log-out" onclick="consumeLogout('${ecmId}', '${openId}')"><i class="icon-img"></i>注销</a>
+				<i class="icon-img"></i>
+				<button class="button" onclick="showScanCode('${ecmId}', '${openId}')">扫码兑奖</button>
+			</div>
+        	</#if>
+	    </div>
+	</div>
+	<script>var base = '${base}', wxConfig = <#if wxConfig??>JSON.parse('${wxConfig}')<#else>''</#if>;</script>
+	<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="${base}js/plugins/layui/layui.all.js" charset="utf-8"></script>
+	<script src="${base}js/zepto.js"></script>
+	<script src="${base}js/emin.common.js"></script>
+	<script src="${base}js/emin.wechat.js"></script>
+	<script src="${base}js/external/qrcode.js"></script>
+	<script src="${base}js/framework7.min.js"></script>
+	<script src="${base}js/consumeApp/routes.js"></script>
+	<script src="${base}js/consumeApp/app.js"></script>
+</body>
+</html>

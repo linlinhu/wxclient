@@ -1,0 +1,35 @@
+<div class="page m-bg detail-page sr-detail-page" data-page="sr-detail">
+	<input type="hidden" class="eMsg" value="${eMsg!''}">
+	<div class="result-content">
+		<i class="icon-img winning-tip" style="background-image:url(${base}/img/srApp/winning-tip.png)"></i>
+		<img class="winning-pic" src="${sr.awardInfo.picUrls.storage[1].fileStorageUrl}">
+		<div class="winning-txt">恭喜你！获得<br>
+		${sr.awardInfo.name}
+		<br>
+		一
+		<#if sr.awardType == 1>
+		${sr.awardInfo.unit}
+		<#else>
+		张
+		</#if>
+		</div>
+		<!-- 
+		<img class="not-winning-pic" src="${base}/img/srApp/not-winning.png">
+		 -->
+	</div>
+	<#if woa??>
+	<div class="woa-content" style="margin:0">
+		<div class="woa-qrcode">
+			<img src="https://open.weixin.qq.com/qr/code?username=${woa.companyCode}" height="100%"/>
+		</div>
+		<div class="col-100 pd10">
+			温馨提示： 长按二维码关注我们，即可领取奖品
+		</div>
+	</div>
+	<#else>
+	<button class="button" onclick="showAwardCode('${sr.awardCode}')">立即使用</button>
+	<div id="myCouponCode" style="display: none">
+		<div class="code-area" style="margin: 0 auto; width: 100px; height: 100px;"></div>
+	</div>
+	</#if>
+</div>

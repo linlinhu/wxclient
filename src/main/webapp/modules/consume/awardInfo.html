@@ -1,0 +1,15 @@
+<div class="page m-bg" data-page="consume-awardinfo">
+	<div class="page-content">
+		<div class="consume-award-detail" id="awardInfo-view"></div>
+		<script type="text/html" id="awardInfoData">
+			<div class="award-info">
+				<i class="icon-img award-pic" style="background-image:url({{d.awardInfo.picUrls.storage[1].fileStorageUrl}})"></i>
+				<div class="award-name">{{d.awardInfo.name}}</div>	
+			</div>
+			<div class="oper-btns">
+				<button class="button not-consume"><a class="link back">暂不兑换</a></button>
+				<button class="button consume" onclick="consumeAward('{{d.ecmId}}', '{{d.openId}}', '{{d.awardCode}}')">确认兑换</button>
+			</div>
+		</script>
+	</div>
+</div>
